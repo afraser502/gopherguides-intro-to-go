@@ -6,7 +6,7 @@ import (
 
 func TestArray(t *testing.T) {
 
-	exp := [4]string{"Alan", "Heidi", "Elliott", "Finlay"}
+	exp := [4]string{"North", "South", "East", "West"}
 
 	// Generate empty 'act' array
 	act := [len(exp)]string{}
@@ -30,12 +30,10 @@ func TestArray(t *testing.T) {
 
 func TestSlice(t *testing.T) {
 
-	exp := []string{"Alan", "Heidi", "Elliott", "Finlay", "imposter"}
+	exp := []string{"North", "South", "East", "West"}
 
 	// Set empty 'act' slice
 	act := make([]string, (len(exp)))
-
-	// act := []string{"Alan", "Heidi", "Elliott", "Finlay", "notimposter"}
 
 	// Copy exp slice to act slice
 	copy(act, exp)
@@ -57,10 +55,10 @@ func TestSlice(t *testing.T) {
 func TestMap(t *testing.T) {
 
 	exp := map[string]string{
-		"Alan":    "boss",
-		"Heidi":   "big boss",
-		"Elliott": "minion",
-		"Finlay":  "minion",
+		"North": "Up",
+		"South": "Down",
+		"East":  "Right",
+		"West":  "Left",
 	}
 
 	// Generate the empty `act` map
@@ -85,13 +83,5 @@ func TestMap(t *testing.T) {
 	if len(act) != len(exp) {
 		t.Errorf("The length of 'act' map is %d and 'exp' map is %d", len(act), len(exp))
 	}
-
-	// Perform a DeepEqual map function comparison
-	// mapCompare := reflect.DeepEqual(exp, act)
-
-	// Test to ensure the DeepEqual comparison is true, otherwise fail
-	// if !mapCompare {
-	// 	t.Errorf("%s is not equal to %s", act, exp)
-	// }
 
 }
