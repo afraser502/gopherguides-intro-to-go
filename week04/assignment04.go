@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io"
 )
 
 var bb bytes.Buffer
@@ -22,10 +21,10 @@ type Teardowner interface {
 	Teardown(v Venue) error
 }
 
-type Venue struct {
-	Audience int
-	Log      io.Writer
-}
+// type Venue struct {
+// 	Audience int
+// 	Log      io.Writer
+// }
 
 type Entertain struct {
 	Firstname string
