@@ -10,7 +10,7 @@ type Venue struct {
 	Log      io.Writer
 }
 
-func (v *Venue) Entertain(audience int, acts []Entertainer) error {
+func (v *Venue) Entertain(audience int, acts ...Entertainer) error {
 	v.Audience = audience
 	for _, act := range acts {
 		if err := v.Play(act); err != nil {
@@ -24,10 +24,10 @@ func (v Venue) Play(act Entertainer) error {
 
 	name := act.Name()
 	if s, ok := act.(Setuper); ok {
-		if err := s.Setup(v) {
+		if err := s.Setup(v); err != nil {
 			return fmt.Errorf("%s: %w", name, err)
 		}
-		fmt.Printf(v.Log, "%s has completed setup\n", name)
+		fmt.Fprintf(v.Log, "%s has completed setup\n", name)
 	}
 	return nil
 }
