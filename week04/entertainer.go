@@ -21,12 +21,16 @@ func (b *Band) Name() string {
 
 func (b *Band) Perform(v Venue) error {
 	b.PlayedFor = v.Audience
+	log := fmt.Sprintf("%s has performed for %d people.\n", b.Name(), b.PlayedFor)
+	v.Log.Write([]byte(log))
 	return nil
 }
 
 func (b *Band) Setup(v Venue) error {
 	if b.IsSetup {
-		return fmt.Errorf("%s has completed setup.\n", b.Name())
+		log := fmt.Sprintf("%s has completed setup.\n", b.Name())
+		v.Log.Write([]byte(log))
+		return nil
 	}
 	b.IsSetup = true
 	return nil
@@ -34,7 +38,9 @@ func (b *Band) Setup(v Venue) error {
 
 func (b *Band) Teardown(v Venue) error {
 	if b.IsTeardown {
-		return fmt.Errorf("%s has completed teardown.\n", b.Name())
+		log := fmt.Sprintf("%s has completed teardown.\n", b.Name())
+		v.Log.Write([]byte(log))
+		return nil
 	}
 	b.IsTeardown = true
 	return nil
@@ -45,12 +51,12 @@ func main() {
 	bb := &bytes.Buffer{}
 	v := &Venue{Log: bb}
 
-	err := v.Entertain(1, &Band{PlayedFor: 10, IsSetup: true})
+	err := v.Entertain(10, &Band{PlayedFor: 10, IsSetup: true})
 
 	if err != nil {
 		fmt.Errorf("Error %s", err)
 	}
 
-	fmt.Print()
+	fmt.Print(v.Log)
 
 }

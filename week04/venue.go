@@ -27,7 +27,17 @@ func (v Venue) Play(act Entertainer) error {
 		if err := s.Setup(v); err != nil {
 			return fmt.Errorf("%s: %w", name, err)
 		}
-		fmt.Fprintf(v.Log, "%s has completed setup\n", name)
 	}
+
+	if err := act.Perform(v); err != nil {
+		return nil
+	}
+
+	if t, ok := act.(Teardowner); ok {
+		if err := t.Teardown(v); err != nil {
+			return fmt.Errorf("%s: %w", name, err)
+		}
+	}
+
 	return nil
 }
