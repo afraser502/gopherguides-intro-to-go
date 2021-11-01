@@ -17,7 +17,7 @@ func Test_Table_Errors2(t *testing.T) {
 		table: tn,
 	}
 
-	if IsErrTableNotFound(&errTable) {
+	if !IsErrTableNotFound(&errTable) {
 		t.Fatalf("table not found %v", errTable.table)
 	}
 

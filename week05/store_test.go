@@ -211,7 +211,7 @@ func Test_Length_error(t *testing.T) {
 	s.Insert(tnexpected, Model{})
 
 	exp, err := s.Len(tnfail)
-	if err != nil {
+	if err == nil {
 		t.Fatalf("Expected %#v, got %#v", exp, err)
 	}
 
