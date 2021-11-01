@@ -5,6 +5,21 @@ import (
 	"testing"
 )
 
+func Test_tablenotfound(t *testing.T) {
+	t.Parallel()
+
+	tn := "users"
+
+	errTable := ErrTableNotFound{
+		table: tn,
+	}
+
+	if errTable.Error() == "" {
+		t.Fatalf("table %s not found", errTable.table)
+	}
+
+}
+
 func Test_Table_Errors2(t *testing.T) {
 	t.Parallel()
 
@@ -38,26 +53,40 @@ func Test_Table_Errors3(t *testing.T) {
 
 }
 
-// func Test_Row_not_found(t *testing.T) {
-// 	t.Parallel()
+func Test_Row_not_found(t *testing.T) {
+	t.Parallel()
 
-// 	// c := Clauses{
-// 	// 	"name":   "Age test",
-// 	// 	"age":    31,
-// 	// 	"expect": `"age": = '31'`,
-// 	// }
+	c := Clauses{
+		"age": 31,
+	}
 
-// 	// c2 := Clauses{
-// 	// 	"age":  31,
-// 	// 	"name": "John",
-// 	// }
+	valRows := errNoRows{
+		clauses: c,
+		table:   "users",
+	}
 
-// 	valRows := errNoRows{
-// 		clauses: map[string]interface{}{},
-// 		// clauses: c,
-// 		table: "users",
-// 	}
+	s := &Store{}
 
-// 	if valRows.clauses.String()
+	s.Insert("users", Model{
+		"age": 31,
+	})
 
-// }
+	exp := valRows.Clauses()
+
+	if exp == nil {
+		t.Fatalf("%v", exp)
+	}
+
+	res := valRows.Error()
+
+	if res == "" {
+		t.Fatalf("%s", res)
+	}
+
+	val, cl := valRows.RowNotFound()
+
+	if val == "" {
+		t.Fatalf("Row not found in table %s with clause %v", val, cl)
+	}
+
+}

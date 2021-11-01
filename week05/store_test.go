@@ -20,8 +20,6 @@ func Test_Selectstore(t *testing.T) {
 	t.Parallel()
 
 	s := Store{}
-
-	// tn := "users"
 	tn := ","
 
 	s.Insert(tn, Model{
@@ -45,7 +43,6 @@ func Test_Selectstore_error(t *testing.T) {
 
 	s := Store{}
 
-	// tn := "users"
 	tn := "alan"
 	new := "brian"
 
@@ -54,7 +51,6 @@ func Test_Selectstore_error(t *testing.T) {
 	exp, err := s.Select(new, Clauses{})
 
 	if err == nil {
-		// t.Fatalf("Expected %s, got %s", exp, err)
 		t.Errorf("Expected %s, got %s", exp, err)
 	}
 }
@@ -63,9 +59,7 @@ func Test_select_result(t *testing.T) {
 	t.Parallel()
 	s := Store{}
 
-	// tn := "users"
 	tn := "alan"
-	// new := "brian"
 
 	s.Insert(tn, Model{
 		"name": "John",
@@ -101,9 +95,7 @@ func Test_no_clauses(t *testing.T) {
 	t.Parallel()
 	s := Store{}
 
-	// tn := "users"
 	tn := "alan"
-	// new := "brian"
 
 	s.Insert(tn, Model{
 		"name": "John",
@@ -120,32 +112,20 @@ func Test_no_clauses(t *testing.T) {
 func Test_TableDrivenTests_Anatomy(t *testing.T) {
 	t.Parallel()
 
-	// any setup code common to all
-	// test cases goes here
-
 	s := Store{}
 	tngood := "users"
 	tnbad := "random"
 
-	// create a slice of anonymous structs
-	// initalize the slice with each of the
-	// desired test cases and assign it to the
-	// variable 'table'.
 	table := []struct {
-		// fields needed for each test case
 		name string
 		tng  string
 		tnb  string
 	}{
-		// { tests cases go here },
 		{name: "Select-data", tng: tngood},
 		{name: "Select-data-error", tng: tngood, tnb: tnbad},
 	}
 
 	for _, tt := range table {
-		// loop through each test case
-		// and make the necessary assertions
-		// for that test case
 		s.Insert(tngood, Model{})
 		exp, err := s.Select(tt.tng, Clauses{})
 		if err != nil {
@@ -188,7 +168,6 @@ func Test_Length(t *testing.T) {
 
 	s := Store{}
 
-	// the table name we will use
 	tn := "users"
 
 	s.Insert(tn, Model{})
