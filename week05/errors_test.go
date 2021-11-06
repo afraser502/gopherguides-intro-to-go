@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func Test_tablenotfound(t *testing.T) {
+func Test_TableNotFound(t *testing.T) {
 	t.Parallel()
 
 	tn := "users"
@@ -53,7 +53,7 @@ func Test_Table_Errors3(t *testing.T) {
 
 }
 
-func Test_Row_not_found(t *testing.T) {
+func Test_RowNotFound(t *testing.T) {
 	t.Parallel()
 
 	c := Clauses{
